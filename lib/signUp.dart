@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:job_application/admin.dart';
 import 'package:job_application/signIn.dart';
 class SignUp extends StatefulWidget {
   @override
@@ -130,7 +131,14 @@ class _SignUpState extends State<SignUp> {
                       textColor: Colors.lightBlue,
                       padding: const EdgeInsets.all(20.0),
                       child: Text("Sign Up".toUpperCase()),
-                      onPressed: () {},
+                      onPressed: () {
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => AdminPanel()),
+                        );
+
+                      },
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                     ),

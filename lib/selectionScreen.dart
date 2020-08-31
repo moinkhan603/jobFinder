@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'companyWelcome.dart';
 import 'package:job_application/signIn.dart';
 
 class SelectCategory extends StatefulWidget {
@@ -41,7 +42,7 @@ class _SelectCategoryState extends State<SelectCategory> {
             onPressed: (){
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SignIn()),
+                MaterialPageRoute(builder: (context) => Welcome()),
               );
             },
             textColor: Colors.white,

@@ -1,81 +1,25 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-class EditProfile extends StatefulWidget {
+class CreateJob extends StatefulWidget {
   @override
-  _EditProfileState createState() => _EditProfileState();
+  _CreateJobState createState() => _CreateJobState();
 }
 
-class _EditProfileState extends State<EditProfile>
+class _CreateJobState extends State<CreateJob>
     with SingleTickerProviderStateMixin {
   bool showSpinner = false;
-  File _image;
+ // File _image;
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
-    return
-
-      Scaffold(
+    return Scaffold(
         body: new Container(
           color: Colors.white,
           child: new ListView(
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  new Container(
-                    height: 250.0,
-                    color: Colors.white,
-                    child: new Column(
-                      children: <Widget>[
 
-                        Padding(
-                          padding: EdgeInsets.only(top: 20.0),
-                          child: new Stack(fit: StackFit.loose, children: <Widget>[
-                            new Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                new Container(
-                                    width: 140.0,
-                                    height: 140.0,
-                                    decoration: new BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: new DecorationImage(
-                                        image: new NetworkImage(
-                                            "https://image.flaticon.com/icons/png/512/0/93.png"),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    )),
-                              ],
-                            ),
-                            Padding(
-                                padding: EdgeInsets.only(top: 90.0, right: 100.0),
-                                child: new Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    new CircleAvatar(
-                                      backgroundColor: Colors.red,
-                                      radius: 25.0,
-                                      child: InkWell(
-
-                                        onTap: (){
-                                          chooseFile();
-                                        },
-                                        child: new Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                )),
-                          ]),
-                        )
-                      ],
-                    ),
-                  ),
                   new Container(
                     color: Color(0xffFFFFFF),
                     child: Padding(
@@ -284,7 +228,14 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+
+
                                       decoration: const InputDecoration(
+
+                                          border: OutlineInputBorder(
+                                            
+                                          ),
+
                                           hintText: "Enter Address"),
                                       enabled: !_status,
                                     ),
@@ -361,7 +312,6 @@ class _EditProfileState extends State<EditProfile>
           ),
         ));
   }
-
   @override
   void dispose() {
     // Clean up the controller when the Widget is disposed
@@ -440,34 +390,4 @@ class _EditProfileState extends State<EditProfile>
     );
   }
 
-
-  void chooseFile() async {
-    File selected = await ImagePicker.pickImage(source: ImageSource.gallery);
-
-    this.setState(() {
-      _image = selected;
-      print(_image);
-    });
-
-    setState(() {
-      showSpinner = true;
-    });
-
-//    StorageReference storageReference = FirebaseStorage.instance
-//        .ref()
-//        .child('Recent/${Path.basename(_image.path)}}');
-//    StorageUploadTask uploadTask = storageReference.putFile(_image);
-//    await uploadTask.onComplete;
-//    print('File Uploaded');
-//    storageReference.getDownloadURL().then((fileURL) {
-//      setState(() {
-//        _uploadedFileURL = fileURL;
-//        print(fileURL);
-//        CRUD.imgurl = fileURL;
-//        showSpinner = false;
-//      });
-//    });
-  }
-
-  }
-
+}

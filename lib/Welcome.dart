@@ -1,5 +1,8 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:job_application/jobView.dart';
 
 import 'customDrawer.dart';
 
@@ -20,7 +23,7 @@ color: Colors.white);
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
-        length: 2,
+        length: 3,
         child: Scaffold(
           key: key1,
           drawer: CustomDrawer.buildDrawer(context),
@@ -156,11 +159,14 @@ color: Colors.white);
 //              ),
 //            ),
               bottom: TabBar(
+
                 tabs: <Widget>[
                   Tab(
+                    
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.home, color: Colors.white),
+                        Icon(FontAwesomeIcons.paperPlane, color: Colors.white),
+                        SizedBox(width: 10,),
                         Text('Applied ', style: TextStyle(color: Colors.white)),
                       ],
                     ),
@@ -168,11 +174,24 @@ color: Colors.white);
                   Tab(
                     child: Row(
                       children: <Widget>[
-                        Icon(Icons.card_giftcard, color: Colors.white),
+                        Icon(FontAwesomeIcons.briefcase, color: Colors.white),
+                        SizedBox(width: 10,),
                         Text('Jobs', style: TextStyle(color: Colors.white)),
                       ],
                     ),
                   ),
+
+                  Tab(
+                    child: Row(
+                      children: <Widget>[
+                        Icon(FontAwesomeIcons.checkCircle
+                            , color: Colors.white),
+                        SizedBox(width: 10,),
+                        Text('Completed', style: TextStyle(color: Colors.white)),
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
 
@@ -236,7 +255,19 @@ color: Colors.white);
 
                   ],
 
-                  )
+                  ),
+
+              ListView(
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
+                  Card1(),
+                  Card1(),
+                  Card1(),
+
+                ],
+              ),
+
+
             ],
           ),
         ),
@@ -316,7 +347,7 @@ mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 Expanded(
   flex: 0,
-    child: Icon(Icons.person)),
+    child: Icon(FontAwesomeIcons.userTie,color: Colors.indigoAccent,)),
             Expanded(
 
               child: Text("Applicants : 6",
@@ -333,7 +364,10 @@ Expanded(
       ),
                 onPressed: ()
                 {
-
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => JobView()),
+                  );
                 },
                 color: Colors.deepPurple,
                 child:
@@ -347,5 +381,141 @@ Expanded(
         ),
       ),
     );
+  }
+}
+
+
+class Card1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ExpandableNotifier(
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 150,
+                  child: Container(
+                    
+                    padding: EdgeInsets.all(20),
+                    child:
+
+                    Column(
+                      children: <Widget>[
+
+
+
+                        Row(
+                          
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                          CircleAvatar(
+                            backgroundColor: Colors.transparent,
+                            radius:30,
+                            child: Image.network("https://icons-for-free.com/iconfiles/png/512/Google-1320568266385361674.png"),
+
+                          ),
+
+                          Text("Company Review",style: TextStyle(fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 25
+                          ),)
+
+                        ],),
+
+                    RatingBar(
+                      itemSize: 30,
+                      initialRating: 3.5,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      allowHalfRating: true,
+                      itemCount: 5,
+                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemBuilder: (context, _) => Icon(
+                        Icons.star,
+                        color: Colors.amber,
+                      ),
+                      onRatingUpdate: (rating) {
+                        print(rating);
+                      },
+                    )
+
+                      ],
+                    ),
+                    decoration: new BoxDecoration(
+
+
+                      gradient: new LinearGradient(
+                          colors: [Colors.indigoAccent, Colors.deepPurple],
+                          begin: const FractionalOffset(0.0, 0.0),
+                          end: const FractionalOffset(1.0, 0.0),
+                          stops: [0.0, 1.0],
+                          tileMode: TileMode.clamp),
+
+                    ),
+
+                  ),
+
+                ),
+                ScrollOnExpand(
+                  scrollOnExpand: true,
+                  scrollOnCollapse: false,
+                  child: ExpandablePanel(
+                    theme: const ExpandableThemeData(
+                      headerAlignment: ExpandablePanelHeaderAlignment.center,
+                      tapBodyToCollapse: true,
+                    ),
+                    header: Padding(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "Your Review",
+                          style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),
+                        )),
+
+                    expanded: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+
+                          Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: RatingBar(
+                                unratedColor: Colors.black38.withOpacity(0.1),
+                                initialRating: 2.25,
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
+                              )
+
+                          ),
+                      ],
+                    ),
+                    builder: (_, collapsed, expanded) {
+                      return Padding(
+                        padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        child: Expandable(
+                          collapsed: collapsed,
+                          expanded: expanded,
+                          theme: const ExpandableThemeData(crossFadePoint: 0),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

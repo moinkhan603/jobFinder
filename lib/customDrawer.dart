@@ -10,8 +10,14 @@ class CustomDrawer {
     return Drawer(
       child: Container(
         padding: const EdgeInsets.only(left: 40.0, right: 40),
-        decoration: BoxDecoration(
-            color: Colors.white, boxShadow: [BoxShadow(color: Colors.white)]),
+        decoration: new BoxDecoration(
+          gradient: new LinearGradient(
+              colors: [Colors.indigoAccent.withOpacity(0.9), Colors.deepPurple.withOpacity(0.9)],
+              begin: const FractionalOffset(0.0, 0.0),
+              end: const FractionalOffset(1.0, 0.0),
+              stops: [0.0, 1.0],
+              tileMode: TileMode.clamp),
+        ),
         width: 200,
         child: SafeArea(
           /// ---------------------------
@@ -34,7 +40,7 @@ class CustomDrawer {
                 Text(
                   "Main Menu",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 25.0,
                       fontWeight: FontWeight.bold),
                 ),
@@ -60,7 +66,8 @@ class CustomDrawer {
                         MaterialPageRoute(builder: (context) => EditProfile()),
                       );
                     },
-                    child: _buildRow(Icons.person, "Profile")),
+                    child: _buildRow(Icons.person, "Profile"
+                ,)),
                 _buildDivider(),
 
                 _buildRow(
@@ -83,11 +90,11 @@ class CustomDrawer {
 
                 _buildRow(Icons.settings_power, "Logout"),
                 _buildDivider(),
-
+SizedBox(height: 30,),
                 Text(
                   "Job Finder",
                   style: TextStyle(
-                      color: Colors.black,
+                      color: Colors.white,
                       fontSize: 25,
                       fontWeight: FontWeight.bold,
                       fontStyle: FontStyle.normal),
@@ -110,14 +117,16 @@ class CustomDrawer {
 
   static Widget _buildRow(IconData icon, String title,
       {bool showBadge = false}) {
-    final TextStyle tStyle = TextStyle(color: Colors.black, fontSize: 16.0);
+    final TextStyle tStyle = TextStyle(color: Colors.white, fontSize: 16.0);
     return Container(
+
+
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
         children: [
           Icon(
             icon,
-            color: Colors.black,
+            color: Colors.white,
           ),
           SizedBox(width: 10.0),
           Text(
@@ -136,7 +145,7 @@ class CustomDrawer {
                 height: 25,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: Colors.deepOrange,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(5.0),
                 ),
                 child: Text(
