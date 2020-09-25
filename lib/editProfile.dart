@@ -1,7 +1,13 @@
 import 'dart:io';
-
+import 'package:path/path.dart' as Path;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
+
+import 'CRUD.dart';
 class EditProfile extends StatefulWidget {
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -18,15 +24,26 @@ class _EditProfileState extends State<EditProfile>
     return
 
       Scaffold(
-        body: new Container(
-          color: Colors.white,
+
+        body: FutureBuilder<dynamic>(
+
+          future: CRUD.fetchProfileData(),
+    builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+
+    if (snapshot.connectionState == ConnectionState.done) {
+
+
+      return ModalProgressHUD(
+        inAsyncCall: showSpinner,
+        child: new Container(
+          color:  Colors.grey.shade300,
           child: new ListView(
             children: <Widget>[
               Column(
                 children: <Widget>[
                   new Container(
                     height: 250.0,
-                    color: Colors.white,
+                    color: Colors.grey.shade300,
                     child: new Column(
                       children: <Widget>[
 
@@ -44,7 +61,7 @@ class _EditProfileState extends State<EditProfile>
                                       shape: BoxShape.circle,
                                       image: new DecorationImage(
                                         image: new NetworkImage(
-                                            "https://image.flaticon.com/icons/png/512/0/93.png"),
+                                            CRUD.imgUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     )),
@@ -72,12 +89,31 @@ class _EditProfileState extends State<EditProfile>
                                   ],
                                 )),
                           ]),
+                        ),
+                        SizedBox(height: 15,),
+                        RatingBar(
+                          itemSize: 30,
+                          initialRating: 5,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          allowHalfRating: true,
+                          itemCount: 5,
+                          itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                          itemBuilder: (context, _) => Icon(
+                            Icons.star,
+                            color: Colors.orange,
+                          ),
+                          onRatingUpdate: (rating) {
+                            print(rating);
+                          },
                         )
+
+
                       ],
                     ),
                   ),
                   new Container(
-                    color: Color(0xffFFFFFF),
+                    color:  Colors.grey.shade300,
                     child: Padding(
                       padding: EdgeInsets.only(bottom: 25.0),
                       child: new Column(
@@ -140,6 +176,12 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.name,
+                                  onChanged: (value) {
+                          CRUD.name = value;
+                          print(value);
+                          },
                                       decoration: const InputDecoration(
                                         hintText: "Enter Your Name",
                                       ),
@@ -178,6 +220,11 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.email,
+                                      onChanged: (value) {
+                                        CRUD.email = value;
+                                      },
                                       decoration: const InputDecoration(
                                           hintText: "Enter Email ID"),
                                       enabled: !_status,
@@ -213,6 +260,11 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.mobileNumber,
+                                      onChanged: (value) {
+                                        CRUD.mobileNumber = value;
+                                      },
                                       decoration: const InputDecoration(
                                           hintText: "Enter Mobile Number"),
                                       enabled: !_status,
@@ -249,6 +301,11 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.dob,
+                                      onChanged: (value) {
+                                        CRUD.dob = value;
+                                      },
                                       decoration: const InputDecoration(
                                           hintText: "Enter Date of Birth"),
                                       enabled: !_status,
@@ -284,6 +341,11 @@ class _EditProfileState extends State<EditProfile>
                                 children: <Widget>[
                                   new Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.address,
+                                      onChanged: (value) {
+                                        CRUD.address = value;
+                                      },
                                       decoration: const InputDecoration(
                                           hintText: "Enter Address"),
                                       enabled: !_status,
@@ -333,6 +395,11 @@ class _EditProfileState extends State<EditProfile>
                                     child: Padding(
                                       padding: EdgeInsets.only(right: 10.0),
                                       child: new TextField(
+                                        controller: TextEditingController()
+                                          ..text = CRUD.country,
+                                        onChanged: (value) {
+                                          CRUD.country = value;
+                                        },
                                         decoration: const InputDecoration(
                                             hintText: "Enter Country"),
                                         enabled: !_status,
@@ -342,6 +409,11 @@ class _EditProfileState extends State<EditProfile>
                                   ),
                                   Flexible(
                                     child: new TextField(
+                                      controller: TextEditingController()
+                                        ..text = CRUD.city,
+                                      onChanged: (value) {
+                                        CRUD.city = value;
+                                      },
                                       decoration: const InputDecoration(
                                           hintText: "Enter City"),
                                       enabled: !_status,
@@ -359,6 +431,16 @@ class _EditProfileState extends State<EditProfile>
               ),
             ],
           ),
+        ),
+      );
+    }
+    else{
+      return Center(child: CircularProgressIndicator());
+    }
+
+          }
+
+
         ));
   }
 
@@ -384,7 +466,14 @@ class _EditProfileState extends State<EditProfile>
                     child: new Text("Save"),
                     textColor: Colors.white,
                     color: Colors.green,
-                    onPressed: () {
+                    onPressed: () async{
+
+
+                      await CRUD.updateProfileData();
+                      await CRUD.fetchProfileData();
+                      Fluttertoast.showToast(msg: "Data Updated");
+
+
                       setState(() {
                         _status = true;
                         FocusScope.of(context).requestFocus(new FocusNode());
@@ -450,23 +539,39 @@ class _EditProfileState extends State<EditProfile>
     });
 
     setState(() {
+
       showSpinner = true;
     });
 
-//    StorageReference storageReference = FirebaseStorage.instance
-//        .ref()
-//        .child('Recent/${Path.basename(_image.path)}}');
-//    StorageUploadTask uploadTask = storageReference.putFile(_image);
-//    await uploadTask.onComplete;
-//    print('File Uploaded');
-//    storageReference.getDownloadURL().then((fileURL) {
-//      setState(() {
-//        _uploadedFileURL = fileURL;
-//        print(fileURL);
-//        CRUD.imgurl = fileURL;
-//        showSpinner = false;
-//      });
-//    });
+    StorageReference storageReference = FirebaseStorage.instance
+        .ref()
+        .child('Recent/${Path.basename(_image.path)}}');
+    StorageUploadTask uploadTask = storageReference.putFile(_image);
+    await uploadTask.onComplete;
+    print('File Uploaded');
+    storageReference.getDownloadURL().then((fileURL) async{
+      setState(() {
+        //  _uploadedFileURL = fileURL;
+        // print(fileURL);
+
+        CRUD.imgUrl =  fileURL;
+
+
+      });
+
+//print(CRUD.imgUrl);
+
+      CRUD.imgUrl=fileURL;
+      showSpinner = false;
+
+      print(CRUD.imgUrl);
+      CRUD.updateProfileData();
+
+    });
+
+
+
+
   }
 
   }

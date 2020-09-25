@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_countdown_timer/countdown_timer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job_application/jobView.dart';
@@ -12,6 +16,56 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+
+
+
+
+  StreamSubscription<QuerySnapshot>subscription;
+
+  List<DocumentSnapshot>jobs;
+//
+//  final CollectionReference collectionReference=
+//  Firestore.instance.collection("posts").document(CRUD.id)
+//      .collection("comments");
+  final CollectionReference collectionReference=
+  Firestore.instance.collection("jobs");
+
+
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+
+    subscription?.cancel();
+    super.dispose();
+
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+
+    subscription=collectionReference
+        .snapshots()
+        .listen((datasnapshot){
+
+
+      setState(() {
+        jobs=datasnapshot.documents;
+      });
+
+
+    });
+
+  }
+
+
+
+
   bool isSearch=false;
   GlobalKey<ScaffoldState> key1 = GlobalKey<ScaffoldState>();
 TextStyle Companystyle=TextStyle(fontSize: 25,fontWeight: FontWeight.bold);
@@ -19,62 +73,64 @@ TextStyle jobTitlestyle=TextStyle(fontSize: 18,
 color: Colors.blueAccent,fontWeight: FontWeight.bold);
 TextStyle infoStyle=TextStyle(fontSize: 15,fontWeight: FontWeight.bold,
 color: Colors.white);
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 60 * 60;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
+          backgroundColor: Colors.grey.shade300,
           key: key1,
           drawer: CustomDrawer.buildDrawer(context),
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(100.0),
             child: AppBar(
-
+backgroundColor: Colors.black,
               actions: <Widget>[
-               isSearch?
-                Padding(
-                  padding: const EdgeInsets.only(right:8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-
-                    child: IconButton(
-                      onPressed: (){
-                        setState(() {
-
-                  isSearch=false;
-
-                        });
-
-                      },
-                      icon: new FaIcon(
-
-                        FontAwesomeIcons.timesCircle,),
-                    ),
-                  ),
-                ):
-                Padding(
-                  padding: const EdgeInsets.only(right:8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-
-                    child: IconButton(
-                      onPressed: (){
-                        setState(() {
-
-                          isSearch=true;
-
-
-                        });
-
-                      },
-                      icon: new FaIcon(
-
-                        FontAwesomeIcons.search,),
-                    ),
-                  ),
-                )
-
+//               isSearch?
+//                Padding(
+//                  padding: const EdgeInsets.only(right:8.0),
+//                  child: Align(
+//                    alignment: Alignment.centerLeft,
+//
+//                    child: IconButton(
+//                      onPressed: (){
+//                        setState(() {
+//
+//                  isSearch=false;
+//
+//                        });
+//
+//                      },
+//                      icon: new FaIcon(
+//
+//                        FontAwesomeIcons.timesCircle,),
+//                    ),
+//                  ),
+//                ):
+//                Padding(
+//                  padding: const EdgeInsets.only(right:8.0),
+//                  child: Align(
+//                    alignment: Alignment.centerLeft,
+//
+//                    child: IconButton(
+//                      onPressed: (){
+//                        setState(() {
+//
+//                          isSearch=true;
+//
+//
+//                        });
+//
+//                      },
+//                      icon: new FaIcon(
+//
+//                        FontAwesomeIcons.search,),
+//                    ),
+//                  ),
+//                )
+//
 
 
 
@@ -82,16 +138,7 @@ color: Colors.white);
               ],
 
 
-              flexibleSpace: Container(
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [Colors.indigoAccent, Colors.deepPurple],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
-              ),
+
               leading: Padding(
                 padding: const EdgeInsets.only(top: 18.0),
                 child: IconButton(
@@ -237,25 +284,356 @@ color: Colors.white);
             children: <Widget>[
               Container(
                 child: Center(
-                  child: Text(
-                    "Home",
-                    style: TextStyle(color: Colors.white, fontSize: 30.0),
-                  ),
+                  child: Column(
+                    children: <Widget>[
+                    Text("Your Countdown",style: TextStyle(fontSize: 30, color: Colors.black),),
+                      SizedBox(height: 10,),
+                      Card(
+                        elevation: 11,
+                        color: Colors.grey,
+                        child: CountdownTimer(
+                        endTime: endTime,
+                        textStyle: TextStyle(fontSize: 30, color: Colors.black),
+                    ),
+                      ),
+
+                  ],),
                 ),
               ),
-              ListView(
-                padding: EdgeInsets.all(10),
-                physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    JobCard(),
-                    JobCard(),
-                    JobCard(),
-                    JobCard(),
-                    JobCard(),
+                            
+                            
+                            
+                            
+         jobs!=null?
+         ListView.builder(
 
-                  ],
+         itemCount: jobs.length,
+    itemBuilder: (BuildContext ctxt, int index) {
+    //  String docID = jobs[index].documentID.toString();
 
-                  ),
+//      String title = jobs[index].data['title'];
+//      String price = jobs[index].data['price'];
+      String companyID=jobs[index].data['c_id'];
+
+                        String jobTitle=jobs[index].data['job_title'];
+
+                        String location=jobs[index].data['location'];
+
+                        String qualification=jobs[index].data['qualification'];
+
+                        String description=jobs[index].data['description'];
+
+                        String type=jobs[index].data['type'];
+
+                        String doc_id=jobs[index].documentID.toString();
+
+                        print(doc_id);
+//
+   return   StreamBuilder(
+
+
+          stream:  Firestore.instance.collection("Company")
+              .snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData)
+            {
+
+
+
+
+              for (int index=0;index<snapshot.data.documents.length;index++)
+              {
+                String CName = snapshot.data.documents[index]['name'];
+
+                        String  Cimg = snapshot.data.documents[index]['img'];
+
+                        print(doc_id);
+
+                        return JobCard(CName,Cimg,jobTitle,type,location,description,qualification,doc_id);
+
+
+              }
+
+              return Container();
+
+
+
+
+
+
+
+            }
+
+            else {
+              return Center(child: CircularProgressIndicator());
+            }
+
+
+
+//        child:
+//        ListView(
+//          padding: EdgeInsets.all(10),
+//          physics: BouncingScrollPhysics(),
+//
+//
+////
+////                        children: <Widget>[
+////                          JobCard(),
+////                          JobCard(),
+////                          JobCard(),
+////                          JobCard(),
+////                          JobCard(),
+////
+////                        ],
+//
+//        );
+
+
+          }
+      );
+    }
+
+    ):Center(child: CircularProgressIndicator()),
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+//                            StreamBuilder(
+//
+//
+//
+//                  stream:  Firestore.instance.collection("jobs")
+//
+//                      .snapshots(),
+//
+//                  builder: (context, snapshot) {
+//
+//                    if (snapshot.hasData) {
+//
+//
+//
+//
+//
+//
+//
+//                      for (int index=0;index<snapshot.data.documents.length;index++)
+//
+//                      {
+//
+//                        String companyID=snapshot.data.documents[index]['c_id'];
+//
+//                        String jobTitle=snapshot.data.documents[index]['job_title'];
+//
+//                        String location=snapshot.data.documents[index]['location'];
+//
+//                        String qualification=snapshot.data.documents[index]['qualification'];
+//
+//                        String description=snapshot.data.documents[index]['description'];
+//
+//                        String type=snapshot.data.documents[index]['type'];
+//
+//                        String doc_id=snapshot.data.documents[index].documentID.toString();
+//
+//                        print(doc_id);
+//
+//
+//
+//
+//
+//
+//
+//                           return StreamBuilder(
+//
+//                      stream:  Firestore.instance.collection("Company")
+//
+//                          .snapshots(),
+//
+//                      builder: (context, snapshot) {
+//
+//                        if (snapshot.hasData) {
+//
+//
+//
+//
+//
+//
+//
+//              //        for (int index=0;index<snapshot.data.documents.length;index++) {
+//
+//
+//
+//
+//
+//              return ListView.builder(
+//
+//
+//
+//
+//                      itemCount: snapshot.data.documents.length,
+//
+//                      itemBuilder: (BuildContext ctxt, int index) {
+//
+//
+//
+//                        String CName = snapshot.data.documents[index]['name'];
+//
+//                        String  Cimg = snapshot.data.documents[index]['img'];
+//
+//                        print(doc_id);
+//
+//                        return JobCard(CName,Cimg,jobTitle,type,location,description,qualification,doc_id);
+//
+//                      }
+//
+//
+//
+//              );
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//              //          String CName = snapshot.data.documents[index]['name'];
+//
+//              //        String  Cimg = snapshot.data.documents[index]['img'];
+//
+//              //          return JobCard(CName,Cimg,jobTitle,type,location,description,qualification,doc_id);
+//
+//              //        }
+//
+//
+//
+//
+//
+//              return Container();
+//
+//
+//
+//
+//
+//
+//
+//              //            return ListView.builder(
+//
+//              //
+//
+//              //            itemCount: snapshot.data.documents.length,
+//
+//              //        itemBuilder: (BuildContext ctxt, int index) {
+//
+//              //
+//
+//              //          String CName = snapshot.data.documents[index]['name'];
+//
+//              //         String  Cimg = snapshot.data.documents[index]['img'];
+//
+//              //print(CName);
+//
+//              //              return JobCard(CName,Cimg,jobTitle,type);
+//
+//              //
+//
+//              //
+//
+//              //        }
+//
+//              //
+//
+//              //
+//
+//              //
+//
+//              //
+//
+//              //
+//
+//              //        );
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//                        }
+//
+//                        else {
+//
+//                          return Center(child: CircularProgressIndicator());
+//
+//                        }
+//
+//
+//
+//
+//
+//                      }
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//                      );
+//
+//
+//
+//                        //return JobCard(title,price,date,status);
+//
+//
+//
+//                      }
+//
+//
+//
+//
+//
+//                    }
+//
+//                    else {
+//
+//                      return Center(child: CircularProgressIndicator());
+//
+//                    }
+//
+//
+//
+//                  }
+//
+//
+//
+//
+//
+//              ),
 
               ListView(
                 physics: const BouncingScrollPhysics(),
@@ -275,7 +653,7 @@ color: Colors.white);
     );
   }
 
-  Widget JobCard() {
+  Widget JobCard(cname,cimg,title,type,loc,des,qual,doc_id) {
     return Container(
       //padding: EdgeInsets.only(top: 100,bottom: 100),
     padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 6),
@@ -290,7 +668,7 @@ color: Colors.white);
 // crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
-        Text("Google",style: Companystyle,
+        Text(cname,style: Companystyle,
           textAlign: TextAlign.left,),
         SizedBox(height: 8,),
         Padding(
@@ -302,7 +680,7 @@ color: Colors.white);
               Expanded(
 flex: 2,
                 child: Container(
-                  child: Text("Flutter Developer is resquired",style: jobTitlestyle,
+                  child: Text(title,style: jobTitlestyle,
 
 
                   ),
@@ -313,7 +691,7 @@ flex: 2,
 flex: 1,
                 child: Container(
                   child: CircleAvatar(child:
-                  Image.network('https://icons-for-free.com/iconfiles/png/512/Google-1320568266385361674.png'),
+                  Image.network(cimg),
                   radius: 25,
                     backgroundColor: Colors.transparent,
                   ),
@@ -339,7 +717,7 @@ mainAxisAlignment: MainAxisAlignment.center,
              Text(" |  "),
 
 
-                Text("Contract",textAlign: TextAlign.left,)
+                Text(type,textAlign: TextAlign.left,)
         ],),
 
         Row(
@@ -347,7 +725,7 @@ mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 Expanded(
   flex: 0,
-    child: Icon(FontAwesomeIcons.userTie,color: Colors.indigoAccent,)),
+    child: Icon(FontAwesomeIcons.userTie,color: Colors.black,)),
             Expanded(
 
               child: Text("Applicants : 6",
@@ -366,10 +744,14 @@ Expanded(
                 {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => JobView()),
+                    MaterialPageRoute(builder: (context) => JobView(
+                      cimg,cname,type,loc,title,des,qual,doc_id
+
+
+                    )),
                   );
                 },
-                color: Colors.deepPurple,
+                color: Colors.black,
                 child:
               Text("view",style: infoStyle,),
               ),
@@ -448,7 +830,7 @@ class Card1 extends StatelessWidget {
 
 
                       gradient: new LinearGradient(
-                          colors: [Colors.indigoAccent, Colors.deepPurple],
+                          colors: [Colors.black, Colors.black],
                           begin: const FractionalOffset(0.0, 0.0),
                           end: const FractionalOffset(1.0, 0.0),
                           stops: [0.0, 1.0],

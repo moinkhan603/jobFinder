@@ -4,6 +4,8 @@ import 'dart:io';
 
 import 'package:job_application/profile.dart';
 
+import 'CRUD.dart';
+
 class CustomDrawer {
   static buildDrawer(BuildContext context) {
     print("dsd");
@@ -12,7 +14,7 @@ class CustomDrawer {
         padding: const EdgeInsets.only(left: 40.0, right: 40),
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
-              colors: [Colors.indigoAccent.withOpacity(0.9), Colors.deepPurple.withOpacity(0.9)],
+              colors: [Colors.black.withOpacity(0.9), Colors.black.withOpacity(0.9)],
               begin: const FractionalOffset(0.0, 0.0),
               end: const FractionalOffset(1.0, 0.0),
               stops: [0.0, 1.0],
@@ -88,7 +90,12 @@ class CustomDrawer {
 
                 _buildDivider(),
 
-                _buildRow(Icons.settings_power, "Logout"),
+                InkWell(
+                    onTap: (){
+                      CRUD.Logout(context);
+                    },
+
+                    child: _buildRow(Icons.settings_power, "Logout")),
                 _buildDivider(),
 SizedBox(height: 30,),
                 Text(

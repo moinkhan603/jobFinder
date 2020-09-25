@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:job_application/CRUD.dart';
+import 'package:job_application/companyCategory.dart';
 import 'package:job_application/companyCreateJob.dart';
 import 'package:job_application/jobView.dart';
 
 import 'package:job_application/customDrawer.dart';
 
-class Welcome extends StatefulWidget {
+class CWelcome extends StatefulWidget {
   @override
-  _WelcomeState createState() => _WelcomeState();
+  _CWelcomeState createState() => _CWelcomeState();
 }
 
-class _WelcomeState extends State<Welcome> {
+class _CWelcomeState extends State<CWelcome> {
   bool isSearch=false;
   GlobalKey<ScaffoldState> key1 = GlobalKey<ScaffoldState>();
   TextStyle Companystyle=TextStyle(fontSize: 25,fontWeight: FontWeight.bold);
@@ -20,6 +22,8 @@ class _WelcomeState extends State<Welcome> {
       color: Colors.white);
   @override
   Widget build(BuildContext context) {
+
+    print(CRUD.type);
     return SafeArea(
       child: DefaultTabController(
         length: 2,
@@ -30,67 +34,59 @@ class _WelcomeState extends State<Welcome> {
             preferredSize: Size.fromHeight(100.0),
             child: AppBar(
 
-              actions: <Widget>[
-                isSearch?
-                Padding(
-                  padding: const EdgeInsets.only(right:8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
+              backgroundColor: Colors.black,
+//              actions: <Widget>[
+//                isSearch?
+//                Padding(
+//                  padding: const EdgeInsets.only(right:8.0),
+//                  child: Align(
+//                    alignment: Alignment.centerLeft,
+//
+//                    child: IconButton(
+//                      onPressed: (){
+//                        setState(() {
+//
+//                          isSearch=false;
+//
+//                        });
+//
+//                      },
+//                      icon: new FaIcon(
+//
+//                        FontAwesomeIcons.timesCircle,),
+//                    ),
+//                  ),
+//                ):
+//                Padding(
+//                  padding: const EdgeInsets.only(right:8.0),
+//                  child: Align(
+//                    alignment: Alignment.centerLeft,
+//
+//                    child: IconButton(
+//                      onPressed: (){
+//                        setState(() {
+//
+//                          isSearch=true;
+//
+//
+//                        });
+//
+//                      },
+//                      icon: new FaIcon(
+//
+//                        FontAwesomeIcons.search,),
+//                    ),
+//                  ),
+//                )
+//
+//
+//
+//
+//
+//              ],
 
-                    child: IconButton(
-                      onPressed: (){
-                        setState(() {
-
-                          isSearch=false;
-
-                        });
-
-                      },
-                      icon: new FaIcon(
-
-                        FontAwesomeIcons.timesCircle,),
-                    ),
-                  ),
-                ):
-                Padding(
-                  padding: const EdgeInsets.only(right:8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-
-                    child: IconButton(
-                      onPressed: (){
-                        setState(() {
-
-                          isSearch=true;
 
 
-                        });
-
-                      },
-                      icon: new FaIcon(
-
-                        FontAwesomeIcons.search,),
-                    ),
-                  ),
-                )
-
-
-
-
-
-              ],
-
-
-              flexibleSpace: Container(
-                decoration: new BoxDecoration(
-                  gradient: new LinearGradient(
-                      colors: [Colors.indigoAccent, Colors.deepPurple],
-                      begin: const FractionalOffset(0.0, 0.0),
-                      end: const FractionalOffset(1.0, 0.0),
-                      stops: [0.0, 1.0],
-                      tileMode: TileMode.clamp),
-                ),
-              ),
               leading: Padding(
                 padding: const EdgeInsets.only(top: 18.0),
                 child: IconButton(
@@ -261,7 +257,7 @@ class _WelcomeState extends State<Welcome> {
                       onPressed: (){
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CreateJob()),
+                          MaterialPageRoute(builder: (context) => CompanyCategory()),
                         );
                       },
 tooltip: "Add New Job",
@@ -359,7 +355,7 @@ elevation: 10,
               children: <Widget>[
                 Expanded(
                     flex: 0,
-                    child: Icon(FontAwesomeIcons.userTie,color: Colors.indigoAccent,)),
+                    child: Icon(FontAwesomeIcons.userTie,color: Colors.black,)),
                 Expanded(
 
                   child: Text("Applicants : 6",
@@ -376,12 +372,12 @@ elevation: 10,
                     ),
                     onPressed: ()
                     {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => JobView()),
-                      );
+//                      Navigator.push(
+//                        context,
+//                        MaterialPageRoute(builder: (context) => JobView()),
+//                      );
                     },
-                    color: Colors.indigo,
+                    color: Colors.black,
                     child:
                     Text("Edit ",style: infoStyle,),
                   ),

@@ -1,11 +1,34 @@
+import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import 'CRUD.dart';
 class JobView extends StatefulWidget {
+
+String cimg;
+String cname;
+String ctye;
+String cloc;
+String ctitle;
+String cdes;
+String cqual;
+String docID;
+  JobView(this.cimg, this.cname,this.ctye, this.cloc, this.ctitle, this.cdes, this.cqual,
+      this.docID);
+
   @override
   _JobViewState createState() => _JobViewState();
 }
 
+
 class _JobViewState extends State<JobView> {
+
+
+  String btntxt="Apply";
+
+  String path="sd";
   TextStyle infoStyle=TextStyle(fontSize: 15,fontWeight: FontWeight.bold,
       color: Colors.white);
   TextStyle infoStyle1=TextStyle(fontSize: 15,
@@ -15,14 +38,25 @@ class _JobViewState extends State<JobView> {
       color: Colors.black);
 
 
+@override
+  void initState() {
+    // TODO: implement initState
 
+
+check();
+
+  super.initState();
+  }
   @override
   Widget build(BuildContext context) {
+
+
+
     return Scaffold(
-backgroundColor: Colors.white,
+      backgroundColor: Colors.grey.shade300,
       bottomNavigationBar: Padding(
 
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10,vertical: 10),
         child: FlatButton(
 
           splashColor: Colors.blueAccent,
@@ -31,14 +65,17 @@ backgroundColor: Colors.white,
           ),
           onPressed: ()
           {
+
+ApplyForJob();
+
 //            Navigator.push(
 //              context,
 //              MaterialPageRoute(builder: (context) => JobView()),
 //            );
           },
-          color: Colors.deepPurple,
+          color: Colors.black,
           child:
-          Text("Apply",style: infoStyle,),
+          Text(btntxt,style: infoStyle,),
         ),
       ),
       body: Column(
@@ -53,7 +90,7 @@ backgroundColor: Colors.white,
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Colors.indigoAccent, Colors.deepPurple],
+                    colors: [Colors.black, Colors.black],
                   ),
                 ),
               height:230,
@@ -71,7 +108,7 @@ alignment: Alignment.center,
 
                         child:
 
-                        Image.network("https://icons-for-free.com/iconfiles/png/512/Google-1320568266385361674.png"),
+                        Image.network(widget.cimg),
                       radius: 50,
                         backgroundColor: Colors.transparent,
 
@@ -95,9 +132,9 @@ SizedBox(height: 20,),
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
 
-                        Text("Remote",style: infoStyle),
+                        Text(widget.ctye,style: infoStyle),
                         Text("Entry",style: infoStyle,),
-                        Text("Paris",style: infoStyle),
+                        Text(widget.cloc,style: infoStyle),
                       ],),
 
 
@@ -142,23 +179,19 @@ physics: BouncingScrollPhysics(),
 
           children: <Widget>[
 
-            Text("Google",style: heading,),
+            Text(widget.cname,style: heading,),
             SizedBox(height: 8,),
-            Text("Flutter developer Required",style: TextStyle(
+            Text(widget.ctitle,style: TextStyle(
               fontWeight: FontWeight.bold
             ),),
             SizedBox(height: 12,),
             Text("Description",style: heading,),
             SizedBox(height: 8,),
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"),
+            Text(widget.cdes),
             SizedBox(height: 8,),
             Text("Qualifications",style: heading,),
             SizedBox(height: 8,),
-            Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit"),
+            Text(widget.cqual),
 
 
             SizedBox(height: 15,),
@@ -175,10 +208,44 @@ physics: BouncingScrollPhysics(),
                 IconButton(
                   tooltip: "Upload Your CV",
                   icon: Icon(FontAwesomeIcons.upload),
+                  onPressed: (){
+
+                    uploadCV();
+
+
+                  }
+                  ,
+                  color: Colors.indigoAccent,
+                ),
+
+
+
+              ],
+            ),
+
+            Text(path,),
+            SizedBox(height: 5,),
+            Row(
+              children: <Widget>[
+
+                Text("Add Your Medical test",style: TextStyle(color: Colors.indigo,
+
+                    fontWeight: FontWeight.bold
+
+                ),),
+
+
+                IconButton(
+                  tooltip: "Add report",
+                  icon: Icon(FontAwesomeIcons.idCard),
                   onPressed: (){}
                   ,
                   color: Colors.indigoAccent,
                 ),
+
+
+
+
               ],
             )
 
@@ -200,6 +267,93 @@ physics: BouncingScrollPhysics(),
         ],
       ),
     );
+  }
+
+  void uploadCV() async{
+
+
+    FilePickerResult result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: [ 'pdf', 'doc'],
+    );
+
+    if(result != null)  {
+      File file = File(result.files.single.path);
+
+      setState(() {
+        path=file.toString();
+      });
+
+    }
+  }
+
+  void ApplyForJob() async{
+
+
+    final QuerySnapshot resultQuery=await Firestore.instance.collection("jobs").document(widget.docID)
+        .collection("Applicants").where('employee_id',isEqualTo: CRUD.myuserid).getDocuments();
+
+    final List<DocumentSnapshot> documentSnapshot=resultQuery.documents;
+
+    print(documentSnapshot.length);
+
+    if(documentSnapshot.length==0)
+    {
+
+      Firestore.instance.collection("jobs").document(widget.docID)
+          .collection("Applicants").document()
+          .setData({
+
+        'employee_id':CRUD.myuserid,
+        'employee_name':CRUD.name,
+        'email':CRUD.email,
+        'phone_number':CRUD.mobileNumber,
+         'employee_CV':""
+
+
+      }).then((value) {
+
+        print('data added');
+
+      }).catchError((onError){
+
+        print('Failed to add data');
+
+      });
+
+    }
+else{
+  setState(() {
+    btntxt="Applied";
+  });
+    }
+
+
+
+
+
+
+
+  }
+
+  void check() async{
+
+
+    final QuerySnapshot resultQuery=await Firestore.instance.collection("jobs").document(widget.docID)
+        .collection("Applicants").where('employee_id',isEqualTo: CRUD.myuserid).getDocuments();
+
+    final List<DocumentSnapshot> documentSnapshot=resultQuery.documents;
+
+    if(documentSnapshot.length!=0)
+      {
+
+        setState(() {
+          btntxt="Applied";
+        });
+
+      }
+
+
   }
 }
 
