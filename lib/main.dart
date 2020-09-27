@@ -39,9 +39,34 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage>
+    with TickerProviderStateMixin{
+  AnimationController _controller;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    _controller = AnimationController(
+      duration: const Duration(seconds: 9),
+      vsync: this,
+    );
 
+    super.initState();
+
+    _controller.forward();
+    new Future.delayed(
+        const Duration(seconds: 9),
+            () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) =>SelectCategory()),
+        ));
+
+  }
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -51,29 +76,74 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-child:
-RaisedButton(
-  onPressed: (){
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SelectCategory()),
-    );
-  },
-  textColor: Colors.white,
-  color: Colors.red,
-  padding: const EdgeInsets.all(8.0),
-  child: new Text(
-    "GO",
-  ),
-),
+
+      body:  Column(
+mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+
+          SizedBox(height: 50,),
+           Image.asset("assets/images/undrawpic.png",
+
+
+
+
+
+
+
+            height: 250,
+
+
+
+
+
+
+
+          ),
+SizedBox(height: 20,),
+              Center(
+                child: RotationTransition(
+
+
+
+            turns: Tween(begin: 1.2, end: 2.2).animate(_controller),
+
+
+
+            child:   Image.asset("assets/images/mylogo.png",
+
+
+
+
+
+
+
+            height: 120,
+
+
+
+
+
+
+
+            ),
+
+
+
+          ),
+              ),
+
+
+SizedBox(height: 30,),
+
+
+          Text("LAH APP",style: TextStyle(fontWeight: FontWeight.bold,
+
+          fontSize: 30
+
+          ),)
+
+        ],
+
       ),
        // This trailing comma makes auto-formatting nicer for build methods.
     );
