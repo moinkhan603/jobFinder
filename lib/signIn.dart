@@ -332,10 +332,10 @@ class _SignInState extends State<SignIn> {
                         GestureDetector
                           (
                             onTap: () {
-//
-//                              Navigator.push(
-//                                  context,
-//                                  MaterialPageRoute(builder: (context) => SignupScreen()));
+
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => SignUp()));
 
 
 

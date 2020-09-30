@@ -15,6 +15,7 @@ class _SignUpState extends State<SignUp> {
   bool showSpinner=false;
   String email;
   String password;
+  String Cpassword;
   final _auth=FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
@@ -155,7 +156,7 @@ class _SignUpState extends State<SignUp> {
                       child: TextField(
                         obscureText: true,
                         onChanged: (String value){
-                          //password=value.trim();
+                          Cpassword=value.trim();
                         },
                         cursorColor: Colors.blue,
                         decoration: InputDecoration(
@@ -199,17 +200,14 @@ class _SignUpState extends State<SignUp> {
                           {
 
 
-
-                            if(email==null || password==null){
+                            if (email == null || password == null) {
                               Fluttertoast.showToast(
                                 msg: "Fields cannot be empty",
                                 toastLength: Toast.LENGTH_LONG,
                               );
                               return;
                             }
-                            if(email.contains("@")==false)
-                            {
-
+                            if (email.contains("@") == false) {
                               print(email.contains("@"));
                               Fluttertoast.showToast(
                                 msg: "Email not valid",
@@ -218,50 +216,54 @@ class _SignUpState extends State<SignUp> {
                               return;
                             }
 
-                            if(email!=null&&password!=null)
-                            {
+                            if (email != null && password != null) {
                               setState(() {
-                                showSpinner=true;
+                                showSpinner = true;
                               });
 
                               try {
                                 FirebaseUser newuser = (await _auth
                                     .createUserWithEmailAndPassword(
-                                    email: email, password: password)).user;
+                                    email: email,
+                                    password: password))
+                                    .user;
 
                                 if (newuser != null) {
                                   try {
-                                    await newuser.sendEmailVerification();
+                                    await newuser
+                                        .sendEmailVerification();
                                     Fluttertoast.showToast(
                                       msg: "Verification Email Sent.",
                                       toastLength: Toast.LENGTH_LONG,
                                     );
                                   } catch (e) {
-                                    print("An error occured while trying to send email  verification");
+                                    print(
+                                        "An error occured while trying to send email  verification");
                                     print(e.message);
                                   }
-                                  CRUD.email=email;
-//              CRUD.password=password;
+                                  CRUD.email = email;
 
                                   // sendVerificationMail(newuser);
                                   Fluttertoast.showToast(
                                     msg: "Successfully Signed Up",
                                     toastLength: Toast.LENGTH_LONG,
                                   );
-//                                  Navigator.push(
-//                                    context,
-//                                    MaterialPageRoute(builder: (context) => loginScreen()),
-//                                  );
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignIn()),
+                                  );
                                 }
                                 setState(() {
                                   showSpinner = false;
                                 });
-                              }
-                              catch(e){
+                              } catch (e) {
                                 print(e);
 
                                 Fluttertoast.showToast(
-                                  msg: "This Email address is already in use",
+                                  msg:
+                                  'Data not correct or email address already in use',
                                   toastLength: Toast.LENGTH_LONG,
                                 );
 
@@ -269,48 +271,7 @@ class _SignUpState extends State<SignUp> {
                                   showSpinner = false;
                                 });
                               }
-
                             }
-
-
-
-
-
-//    if(email==null||password==null)
-//    {
-//    print('xxx');
-//    Toast.show(
-//    "feilds cannot be empty",
-//
-//    context, duration: Toast.LENGTH_SHORT, gravity:  Toast.BOTTOM,backgroundColor:Colors.red);
-//
-//    }
-//    else {
-//    setState(() {
-//    showSpinner = true;
-//    });
-//    try {
-//    final newuser = await _auth.signInWithEmailAndPassword
-//    (email: email, password: password);
-//    if (newuser != null) {
-//    Navigator.push(
-//    context,
-//    MaterialPageRoute(builder: (context) => wlcm()),
-//    );
-//    }
-//    setState(() {
-//    showSpinner = false;
-//    });
-//    }
-//    catch (e) {
-//    print(e);
-//    setState(() {
-//    showSpinner = false;
-//    });
-//    }
-//    }
-//
-
 
 
 
