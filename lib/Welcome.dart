@@ -7,8 +7,10 @@ import 'package:flutter_countdown_timer/countdown_timer.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:job_application/jobView.dart';
+import 'package:job_application/questions.dart';
 
 import 'customDrawer.dart';
+import 'jobViewX.dart';
 
 class Welcome extends StatefulWidget {
   @override
@@ -17,7 +19,7 @@ class Welcome extends StatefulWidget {
 
 class _WelcomeState extends State<Welcome> {
 
-
+String ApplicationStatus="In Progress";
 
 
   StreamSubscription<QuerySnapshot>subscription;
@@ -80,7 +82,7 @@ color: Colors.white);
       child: DefaultTabController(
         length: 3,
         child: Scaffold(
-          backgroundColor: Colors.grey.shade300,
+          backgroundColor: Colors.white.withOpacity(0.9),
           key: key1,
           drawer: CustomDrawer.buildDrawer(context),
           appBar: PreferredSize(
@@ -88,49 +90,63 @@ color: Colors.white);
             child: AppBar(
 backgroundColor: Colors.black,
               actions: <Widget>[
-//               isSearch?
-//                Padding(
-//                  padding: const EdgeInsets.only(right:8.0),
-//                  child: Align(
-//                    alignment: Alignment.centerLeft,
-//
-//                    child: IconButton(
-//                      onPressed: (){
-//                        setState(() {
-//
-//                  isSearch=false;
-//
-//                        });
-//
-//                      },
-//                      icon: new FaIcon(
-//
-//                        FontAwesomeIcons.timesCircle,),
-//                    ),
-//                  ),
-//                ):
-//                Padding(
-//                  padding: const EdgeInsets.only(right:8.0),
-//                  child: Align(
-//                    alignment: Alignment.centerLeft,
-//
-//                    child: IconButton(
-//                      onPressed: (){
-//                        setState(() {
-//
-//                          isSearch=true;
-//
-//
-//                        });
-//
-//                      },
-//                      icon: new FaIcon(
-//
-//                        FontAwesomeIcons.search,),
-//                    ),
-//                  ),
-//                )
-//
+               isSearch?
+                Padding(
+                  padding: const EdgeInsets.only(right:8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+
+                    child: IconButton(
+                      onPressed: (){
+                        setState(() {
+
+                  isSearch=false;
+
+                        });
+
+                      },
+                      icon: new FaIcon(
+
+                        FontAwesomeIcons.timesCircle,),
+                    ),
+                  ),
+                ):
+                Padding(
+                  padding: const EdgeInsets.only(right:8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+
+                    child: IconButton(
+                      onPressed: (){
+                        setState(() {
+
+                          isSearch=true;
+
+
+                        });
+
+                      },
+                      icon: new FaIcon(
+
+                        FontAwesomeIcons.search,),
+                    ),
+                  ),
+                )
+,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: IconButton(
+
+onPressed: (){
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => Questions()),
+  );
+},
+                    icon: new Icon(
+
+                    Icons.filter_list,color: Colors.white,),),
+                )
 
 
 
@@ -286,15 +302,151 @@ backgroundColor: Colors.black,
                 child: Center(
                   child: Column(
                     children: <Widget>[
-                    Text("Your Countdown",style: TextStyle(fontSize: 30, color: Colors.black),),
-                      SizedBox(height: 10,),
-                      Card(
-                        elevation: 11,
-                        color: Colors.grey,
-                        child: CountdownTimer(
-                        endTime: endTime,
-                        textStyle: TextStyle(fontSize: 30, color: Colors.black),
-                    ),
+//                    Text("Your Countdown",style: TextStyle(fontSize: 30, color: Colors.black),),
+//                      SizedBox(height: 10,),
+//                      Card(
+//                        elevation: 11,
+//                        color: Colors.grey,
+//                        child: CountdownTimer(
+//                        endTime: endTime,
+//                        textStyle: TextStyle(fontSize: 30, color: Colors.black),
+//                    ),
+//                      ),
+
+                      Padding(
+                        padding: EdgeInsets.only(right: 32, left: 0, top: 40, bottom: 32),
+                        child: Text(
+                          "Your \napplications ("+" 1 " ")",
+                          style: TextStyle(
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
+                              height: 1.2
+                          ),
+                        ),
+                      ),
+
+
+                      Padding(
+                        padding: EdgeInsets.only(right: 32, left: 32, bottom: 8),
+                        child: Column(
+                          children: [
+                        Container(
+                        padding: EdgeInsets.all(24),
+                        margin: EdgeInsets.symmetric(vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: Column(
+                          children: [
+
+                            Row(
+                              children: [
+
+                                Container(
+                                  height: 60,
+                                  width: 60,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage('https://lh3.googleusercontent.com/proxy/39OLGaL3MS7C43_o9wKnZG0N3B_kmsuA3zgeE8j42QOhnz2boChf3gpa5Od1oL1Oy5wU3JNUYHFQ994DdvxQHTTDcyGz0zF1vJYFCOW4Do51sEWQkoo5tFftqeKeJioCaw'),
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10),
+                                    ),
+                                  ),
+                                ),
+
+                                Expanded(
+                                    child: Padding(
+                                      padding: EdgeInsets.symmetric(horizontal: 24),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+
+                                          Text(
+                                            "Product Designer",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+
+                                          Text(
+                                            "Google",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.grey,
+                                            ),
+                                          ),
+
+                                        ],
+                                      ),
+                                    )
+                                ),
+
+                                Icon(
+                                  Icons.more_vert,
+                                ),
+
+                              ],
+                            ),
+
+                            SizedBox(
+                              height: 16,
+                            ),
+
+                            Row(
+                              children: [
+
+                                Expanded(
+                                  child: Container(
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[200],
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        ApplicationStatus,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                          color: ApplicationStatus == "In Progress" ? Colors.green[500] :
+                                          ApplicationStatus == "Completed" ? Colors.red[500] : Colors.black,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                                Expanded(
+                                  child: Container(
+                                    child: Center(
+                                      child: Text(
+                                        r"$" + '88' + "/h",
+                                        style: TextStyle(
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      )
+                          ],
+
+                        ),
                       ),
 
                   ],),
@@ -305,9 +457,71 @@ backgroundColor: Colors.black,
                             
                             
          jobs!=null?
-         ListView.builder(
+         SingleChildScrollView(
+           child: Column(
+             children: [
 
-         itemCount: jobs.length,
+
+               Container(
+                 height: 100,
+                 child: ListView(
+                   physics: BouncingScrollPhysics(),
+                   scrollDirection: Axis.horizontal,
+                  children: [
+
+
+                    Padding(
+                      padding: EdgeInsets.only(right: 32, left: 32, top: 8, bottom: 20),
+                      child: Text(
+                        "Developer \nJobs",
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            height: 1.2
+                        ),
+                      ),
+                    ),
+
+
+
+
+                  ],
+                 ),
+               ),
+               Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+                 child: Wrap(
+                   crossAxisAlignment: WrapCrossAlignment.start,
+                   spacing: 16,
+                   runSpacing: 16,
+                   children: [
+                     buildFilterOption("Developer"),
+                     buildFilterOption("San Francisco"),
+                     buildFilterOption(r"$30 - 50h"),
+                     buildFilterOption("Part-Time"),
+                   ],
+                 ),
+               ),
+               Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                 child: Align(
+                   alignment: Alignment.bottomLeft,
+                   child: Text(
+                     "Recently added",
+                     style: TextStyle(
+                       fontSize: 18,
+                       fontWeight: FontWeight.bold,
+                     ),
+                   ),
+                 ),
+               ),
+
+
+               Container(
+                 height: 500,
+                 child: ListView.builder(
+
+                 itemCount: jobs.length,
     itemBuilder: (BuildContext ctxt, int index) {
     //  String docID = jobs[index].documentID.toString();
 
@@ -315,58 +529,62 @@ backgroundColor: Colors.black,
 //      String price = jobs[index].data['price'];
       String companyID=jobs[index].data['c_id'];
 
-                        String jobTitle=jobs[index].data['job_title'];
+                                String jobTitle=jobs[index].data['job_title'];
 
-                        String location=jobs[index].data['location'];
+                                String location=jobs[index].data['location'];
 
-                        String qualification=jobs[index].data['qualification'];
+                                String qualification=jobs[index].data['qualification'];
 
-                        String description=jobs[index].data['description'];
+                                String description=jobs[index].data['description'];
 
-                        String type=jobs[index].data['type'];
+                                String type=jobs[index].data['type'];
 
-                        String doc_id=jobs[index].documentID.toString();
+                                String doc_id=jobs[index].documentID.toString();
 
-                        print(doc_id);
+                                print(doc_id);
 //
    return   StreamBuilder(
 
 
-          stream:  Firestore.instance.collection("Company")
-              .snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData)
-            {
+                  stream:  Firestore.instance.collection("Company")
+                      .snapshots(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData)
+                    {
 
 
 
 
-              for (int index=0;index<snapshot.data.documents.length;index++)
-              {
-                String CName = snapshot.data.documents[index]['name'];
+                      for (int index=0;index<snapshot.data.documents.length;index++)
+                      {
+                        String CName = snapshot.data.documents[index]['name'];
 
-                        String  Cimg = snapshot.data.documents[index]['img'];
+                                String  Cimg = snapshot.data.documents[index]['img'];
 
-                        print(doc_id);
-
-                        return JobCard(CName,Cimg,jobTitle,type,location,description,qualification,doc_id);
+                                print(doc_id);
 
 
-              }
-
-              return Container();
-
+                                  return JobCard(CName,Cimg,jobTitle,type,location,description,qualification,doc_id);
 
 
 
 
 
+                      }
 
-            }
+                      return Container();
 
-            else {
-              return Center(child: CircularProgressIndicator());
-            }
+
+
+
+
+
+
+                    }
+
+                    else {
+                      return Center(child: CircularProgressIndicator());
+                    }
 
 
 
@@ -389,11 +607,15 @@ backgroundColor: Colors.black,
 //        );
 
 
-          }
+                  }
       );
     }
 
-    ):Center(child: CircularProgressIndicator()),
+    ),
+               ),
+             ],
+           ),
+         ):Center(child: CircularProgressIndicator()),
                             
                             
                             
@@ -656,109 +878,164 @@ backgroundColor: Colors.black,
   Widget JobCard(cname,cimg,title,type,loc,des,qual,doc_id) {
     return Container(
       //padding: EdgeInsets.only(top: 100,bottom: 100),
-    padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 6),
+    padding: const EdgeInsets.only(left: 15,right: 15,bottom: 5),
       child: Card(
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
-        color: Colors.white.withOpacity(0.88),
+        color: Colors.white,
         elevation: 5,
-        child: Column(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
 //crossAxisAlignment: CrossAxisAlignment.start,
 // crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-
-        Text(cname,style: Companystyle,
-          textAlign: TextAlign.left,),
-        SizedBox(height: 8,),
-        Padding(
-          padding: const EdgeInsets.only(left: 20),
-          child: Row(
-
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              Expanded(
-flex: 2,
-                child: Container(
-                  child: Text(title,style: jobTitlestyle,
 
+          Text(cname,style: Companystyle,
+            textAlign: TextAlign.left,),
+          SizedBox(height: 8,),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Row(
+
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Expanded(
+flex: 2,
+                  child: Container(
+                    child: Text(title,style: jobTitlestyle,
+
+
+                    ),
+                  ),
+                ),
+
+                Expanded(
+flex: 1,
+                  child: Container(
+                    child: CircleAvatar(child:
+                    Image.network(cimg),
+                    radius: 25,
+                      backgroundColor: Colors.transparent,
+                    ),
+                  ),
+                )
+
+              ],
+            ),
+          ),
+              SizedBox(height: 5,),
+              Row(
+mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+            Text("Type ",style: TextStyle(
+
+              color: Colors.black87
+
+            ),
+
+
+            ),
+
+               Text(" |  "),
+
+
+                  Text(type,textAlign: TextAlign.left,)
+          ],),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+
+              Flexible(
+
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: Text("Applicants : 6",
+                  style: TextStyle(color: Colors.green,fontWeight: FontWeight.bold),
 
                   ),
                 ),
               ),
+              Flexible(
 
-              Expanded(
-flex: 1,
-                child: Container(
-                  child: CircleAvatar(child:
-                  Image.network(cimg),
-                  radius: 25,
-                    backgroundColor: Colors.transparent,
-                  ),
+                child: FlatButton(
+                  splashColor: Colors.blueAccent,
+                  shape:   RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0),
+      ),
+                  onPressed: ()
+                  {
+//                  Navigator.push(
+//                    context,
+//                    MaterialPageRoute(builder: (context) => JobView(
+//                      cimg,cname,type,loc,title,des,qual,doc_id
+//
+//
+//                    )),
+//                  );
+
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => JobViewX(
+                          cimg,cname,type,loc,title,des,qual,doc_id
+
+
+                      )),
+                    );
+
+
+                  },
+                  color: Colors.black,
+                  child:
+                Text("view",style: infoStyle,),
                 ),
               )
+            ],
+          )
 
             ],
           ),
         ),
-            SizedBox(height: 5,),
-            Row(
-mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-          Text("Type ",style: TextStyle(
-
-            color: Colors.black87
-
-          ),
-
-
-          ),
-
-             Text(" |  "),
-
-
-                Text(type,textAlign: TextAlign.left,)
-        ],),
-
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: <Widget>[
-Expanded(
-  flex: 0,
-    child: Icon(FontAwesomeIcons.userTie,color: Colors.black,)),
-            Expanded(
-
-              child: Text("Applicants : 6",
-              style: TextStyle(color: Colors.deepPurple,fontWeight: FontWeight.bold),
-
+      ),
+    );
+  }
+  Widget buildFilterOption(String text){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(5),
+        ),
+      ),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8,),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
               ),
             ),
-            Flexible(
-
-              child: FlatButton(
-                splashColor: Colors.blueAccent,
-                shape:   RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0),
-      ),
-                onPressed: ()
-                {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => JobView(
-                      cimg,cname,type,loc,title,des,qual,doc_id
-
-
-                    )),
-                  );
-                },
-                color: Colors.black,
-                child:
-              Text("view",style: infoStyle,),
-              ),
-            )
-          ],
-        )
-
+            SizedBox(
+              width: 8,
+            ),
+            Icon(
+              Icons.clear,
+              size: 18,
+            ),
           ],
         ),
       ),
@@ -900,4 +1177,5 @@ class Card1 extends StatelessWidget {
           ),
         ));
   }
+
 }

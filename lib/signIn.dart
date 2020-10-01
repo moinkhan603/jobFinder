@@ -240,13 +240,26 @@ class _SignInState extends State<SignIn> {
                                   if (newuser != null&&newuser.isEmailVerified==true) {
 
                                     CRUD.email=email;
-                                   // CRUD.addData();
-//              CRUD.password=password;
+                                    if(CRUD.type=="Employee")
+                                    {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Welcome()),
+                                      );
+                                    }
+                                    else{
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                CWelcome()),
+                                      );
 
-//                                    Navigator.push(
-//                                      context,
-//                                      MaterialPageRoute(builder: (context) => HomeScrren()),
-//                                    );
+
+                                    }
+
                                   }
                                   else{
 
