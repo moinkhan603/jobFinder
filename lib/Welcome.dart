@@ -502,6 +502,807 @@ onPressed: (){
                    ],
                  ),
                ),
+
+
+               Padding(
+                 padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                 child: Align(
+                   alignment: Alignment.bottomLeft,
+                   child: Text(
+                     "Recomended For you",
+                     style: TextStyle(
+                       fontSize: 18,
+                       fontWeight: FontWeight.bold,
+                     ),
+                   ),
+                 ),
+               ),
+
+Container(
+
+  height: 190,
+
+  child: ListView(
+
+    physics: BouncingScrollPhysics(),
+
+    scrollDirection: Axis.horizontal,
+
+    children: [
+
+
+
+
+
+
+
+      GestureDetector(
+
+        onTap: () {
+
+//    Navigator.push(
+
+//    context,
+
+//    MaterialPageRoute(builder: (context) => JobDetail(job: job)),
+
+//    );
+
+        },
+
+        child: Container(
+
+          width: 200,
+
+          decoration: BoxDecoration(
+
+            color: Colors.white,
+
+            borderRadius: BorderRadius.all(
+
+              Radius.circular(10),
+
+            ),
+
+          ),
+
+          padding: EdgeInsets.all(16),
+
+          margin: EdgeInsets.only(right: 16),
+
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+
+
+
+              Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+
+
+
+                  Container(
+
+                    height: 50,
+
+                    width: 50,
+
+                    decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                        image: NetworkImage('https://lh3.googleusercontent.com/proxy/39OLGaL3MS7C43_o9wKnZG0N3B_kmsuA3zgeE8j42QOhnz2boChf3gpa5Od1oL1Oy5wU3JNUYHFQ994DdvxQHTTDcyGz0zF1vJYFCOW4Do51sEWQkoo5tFftqeKeJioCaw'),
+
+                        fit: BoxFit.fitWidth,
+
+                      ),
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                  Container(
+
+                    decoration: BoxDecoration(
+
+                      color: Colors.grey[200],
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                    child: Padding(
+
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4,),
+
+                      child: Text(
+
+                        "Full-time",
+
+                        style: TextStyle(
+
+                          fontWeight: FontWeight.bold,
+
+                          fontSize: 14,
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                ],
+
+              ),
+
+
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  mainAxisAlignment: MainAxisAlignment.end,
+
+                  children: [
+
+
+
+                    Text(
+
+                      "Graphic Designer",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 16,
+
+                      ),
+
+                    ),
+
+
+
+                    SizedBox(
+
+                      height: 8,
+
+                    ),
+
+
+
+                    Text(
+
+                      r"$" + "78"+ "/h",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 24,
+
+                      ),
+
+                    ),
+
+
+
+                  ],
+
+                ),
+
+              )
+
+
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+      GestureDetector(
+
+        onTap: () {
+
+//    Navigator.push(
+
+//    context,
+
+//    MaterialPageRoute(builder: (context) => JobDetail(job: job)),
+
+//    );
+
+        },
+
+        child: Container(
+
+          width: 200,
+
+          decoration: BoxDecoration(
+
+            color: Colors.white,
+
+            borderRadius: BorderRadius.all(
+
+              Radius.circular(10),
+
+            ),
+
+          ),
+
+          padding: EdgeInsets.all(16),
+
+          margin: EdgeInsets.only(right: 16),
+
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+
+
+
+              Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+
+
+
+                  Container(
+
+                    height: 50,
+
+                    width: 50,
+
+                    decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                        image: NetworkImage('https://lh3.googleusercontent.com/proxy/39OLGaL3MS7C43_o9wKnZG0N3B_kmsuA3zgeE8j42QOhnz2boChf3gpa5Od1oL1Oy5wU3JNUYHFQ994DdvxQHTTDcyGz0zF1vJYFCOW4Do51sEWQkoo5tFftqeKeJioCaw'),
+
+                        fit: BoxFit.fitWidth,
+
+                      ),
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                  Container(
+
+                    decoration: BoxDecoration(
+
+                      color: Colors.grey[200],
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                    child: Padding(
+
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4,),
+
+                      child: Text(
+
+                        "Full-time",
+
+                        style: TextStyle(
+
+                          fontWeight: FontWeight.bold,
+
+                          fontSize: 14,
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                ],
+
+              ),
+
+
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  mainAxisAlignment: MainAxisAlignment.end,
+
+                  children: [
+
+
+
+                    Text(
+
+                      "Graphic Designer",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 16,
+
+                      ),
+
+                    ),
+
+
+
+                    SizedBox(
+
+                      height: 8,
+
+                    ),
+
+
+
+                    Text(
+
+                      r"$" + "78"+ "/h",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 24,
+
+                      ),
+
+                    ),
+
+
+
+                  ],
+
+                ),
+
+              )
+
+
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+      GestureDetector(
+
+        onTap: () {
+
+//    Navigator.push(
+
+//    context,
+
+//    MaterialPageRoute(builder: (context) => JobDetail(job: job)),
+
+//    );
+
+        },
+
+        child: Container(
+
+          width: 200,
+
+          decoration: BoxDecoration(
+
+            color: Colors.white,
+
+            borderRadius: BorderRadius.all(
+
+              Radius.circular(10),
+
+            ),
+
+          ),
+
+          padding: EdgeInsets.all(16),
+
+          margin: EdgeInsets.only(right: 16),
+
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+
+
+
+              Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+
+
+
+                  Container(
+
+                    height: 50,
+
+                    width: 50,
+
+                    decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                        image: NetworkImage('https://lh3.googleusercontent.com/proxy/39OLGaL3MS7C43_o9wKnZG0N3B_kmsuA3zgeE8j42QOhnz2boChf3gpa5Od1oL1Oy5wU3JNUYHFQ994DdvxQHTTDcyGz0zF1vJYFCOW4Do51sEWQkoo5tFftqeKeJioCaw'),
+
+                        fit: BoxFit.fitWidth,
+
+                      ),
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                  Container(
+
+                    decoration: BoxDecoration(
+
+                      color: Colors.grey[200],
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                    child: Padding(
+
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4,),
+
+                      child: Text(
+
+                        "Full-time",
+
+                        style: TextStyle(
+
+                          fontWeight: FontWeight.bold,
+
+                          fontSize: 14,
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                ],
+
+              ),
+
+
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  mainAxisAlignment: MainAxisAlignment.end,
+
+                  children: [
+
+
+
+                    Text(
+
+                      "Graphic Designer",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 16,
+
+                      ),
+
+                    ),
+
+
+
+                    SizedBox(
+
+                      height: 8,
+
+                    ),
+
+
+
+                    Text(
+
+                      r"$" + "78"+ "/h",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 24,
+
+                      ),
+
+                    ),
+
+
+
+                  ],
+
+                ),
+
+              )
+
+
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+      GestureDetector(
+
+        onTap: () {
+
+//    Navigator.push(
+
+//    context,
+
+//    MaterialPageRoute(builder: (context) => JobDetail(job: job)),
+
+//    );
+
+        },
+
+        child: Container(
+
+          width: 200,
+
+          decoration: BoxDecoration(
+
+            color: Colors.white,
+
+            borderRadius: BorderRadius.all(
+
+              Radius.circular(10),
+
+            ),
+
+          ),
+
+          padding: EdgeInsets.all(16),
+
+          margin: EdgeInsets.only(right: 16),
+
+          child: Column(
+
+            crossAxisAlignment: CrossAxisAlignment.start,
+
+            children: [
+
+
+
+              Row(
+
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                children: [
+
+
+
+                  Container(
+
+                    height: 50,
+
+                    width: 50,
+
+                    decoration: BoxDecoration(
+
+                      image: DecorationImage(
+
+                        image: NetworkImage('https://lh3.googleusercontent.com/proxy/39OLGaL3MS7C43_o9wKnZG0N3B_kmsuA3zgeE8j42QOhnz2boChf3gpa5Od1oL1Oy5wU3JNUYHFQ994DdvxQHTTDcyGz0zF1vJYFCOW4Do51sEWQkoo5tFftqeKeJioCaw'),
+
+                        fit: BoxFit.fitWidth,
+
+                      ),
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                  Container(
+
+                    decoration: BoxDecoration(
+
+                      color: Colors.grey[200],
+
+                      borderRadius: BorderRadius.all(
+
+                        Radius.circular(10),
+
+                      ),
+
+                    ),
+
+                    child: Padding(
+
+                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4,),
+
+                      child: Text(
+
+                        "Full-time",
+
+                        style: TextStyle(
+
+                          fontWeight: FontWeight.bold,
+
+                          fontSize: 14,
+
+                        ),
+
+                      ),
+
+                    ),
+
+                  ),
+
+
+
+                ],
+
+              ),
+
+
+
+              Expanded(
+
+                child: Column(
+
+                  crossAxisAlignment: CrossAxisAlignment.start,
+
+                  mainAxisAlignment: MainAxisAlignment.end,
+
+                  children: [
+
+
+
+                    Text(
+
+                      "Graphic Designer",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 16,
+
+                      ),
+
+                    ),
+
+
+
+                    SizedBox(
+
+                      height: 8,
+
+                    ),
+
+
+
+                    Text(
+
+                      r"$" + "78"+ "/h",
+
+                      style: TextStyle(
+
+                        fontWeight: FontWeight.bold,
+
+                        fontSize: 24,
+
+                      ),
+
+                    ),
+
+
+
+                  ],
+
+                ),
+
+              )
+
+
+
+            ],
+
+          ),
+
+        ),
+
+      ),
+
+    ],
+
+  ),
+
+),
+
+
+               // recommended jobs horixontal lists
+
+
                Padding(
                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                  child: Align(
