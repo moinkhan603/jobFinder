@@ -128,7 +128,8 @@ backgroundColor: Colors.black,
                       },
                       icon: new FaIcon(
 
-                        FontAwesomeIcons.search,),
+                        FontAwesomeIcons.search,
+                      size: 18,),
                     ),
                   ),
                 )
@@ -258,7 +259,7 @@ onPressed: (){
                 ],
               ),
 
-              title: !isSearch? Text("Job Finder",style: TextStyle(
+              title: !isSearch? Text("LAH App",style: TextStyle(
                   fontFamily: 'Spicy Rice'
               ),
 
@@ -473,7 +474,7 @@ onPressed: (){
                     Padding(
                       padding: EdgeInsets.only(right: 32, left: 32, top: 8, bottom: 20),
                       child: Text(
-                        "Developer \nJobs",
+                        "Available \nJobs",
                         style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
@@ -556,7 +557,8 @@ Container(
 
           decoration: BoxDecoration(
 
-            color: Colors.white,
+            color: Colors.black
+            ,
 
             borderRadius: BorderRadius.all(
 
@@ -642,6 +644,7 @@ Container(
 
                           fontSize: 14,
 
+
                         ),
 
                       ),
@@ -679,6 +682,7 @@ Container(
                         fontWeight: FontWeight.bold,
 
                         fontSize: 16,
+                        color: Colors.white
 
                       ),
 
@@ -703,7 +707,7 @@ Container(
                         fontWeight: FontWeight.bold,
 
                         fontSize: 24,
-
+                          color: Colors.white
                       ),
 
                     ),

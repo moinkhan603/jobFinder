@@ -176,7 +176,7 @@ class _CWelcomeState extends State<CWelcome> {
                 ],
               ),
 
-              title: !isSearch? Text("Job Finder",style: TextStyle(
+              title: !isSearch? Text("LAH App",style: TextStyle(
                   fontFamily: 'Spicy Rice'
               ),
 
@@ -217,14 +217,14 @@ class _CWelcomeState extends State<CWelcome> {
           body: TabBarView(
             children: <Widget>[
               Container(
-                child: Center(
-                  child:FloatingActionButton(child:
-
-                    Text("Apply"),
-
-                  backgroundColor: Colors.red,
-                  )
-                ),
+//                child: Center(
+//                  child:FloatingActionButton(child:
+//
+//                    Text("Apply"),
+//
+//                  backgroundColor: Colors.red,
+//                  )
+//                ),
               ),
 
               Stack(children: <Widget>[

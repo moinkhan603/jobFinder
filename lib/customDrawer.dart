@@ -74,7 +74,7 @@ class CustomDrawer {
 
                 _buildRow(
                   Icons.message,
-                  "messages",
+                  "Messages",
                 ),
                 _buildDivider(),
                 _buildRow(
@@ -98,14 +98,19 @@ class CustomDrawer {
                     child: _buildRow(Icons.settings_power, "Logout")),
                 _buildDivider(),
 SizedBox(height: 30,),
-                Text(
-                  "Job Finder",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.normal),
+//                Text(
+//                  "LAH App",
+//                  style: TextStyle(
+//                      color: Colors.white,
+//                      fontSize: 25,
+//                      fontWeight: FontWeight.bold,
+//                      fontStyle: FontStyle.normal),
+//                ),
+
+                Image.asset('assets/images/mylogo.png',
+                height: 88,
                 )
+
               ],
             ),
           ),
